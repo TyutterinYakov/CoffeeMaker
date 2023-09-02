@@ -29,8 +29,6 @@ public class NewCoffeeMakerDto {
     @Positive
     private int waterCompartment; //ml
     @Positive
-    private int orderTiming; //seconds
-    @Positive
     private int flushingTiming; //seconds
     @Positive
     private int amountOfWaterForFlushing;

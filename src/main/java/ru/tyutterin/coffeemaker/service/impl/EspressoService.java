@@ -5,21 +5,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.tyutterin.coffeemaker.dto.NewCoffee;
 import ru.tyutterin.coffeemaker.model.entity.*;
-import ru.tyutterin.coffeemaker.repository.CoffeeRepository;
-import ru.tyutterin.coffeemaker.repository.MilkResideRepository;
-import ru.tyutterin.coffeemaker.repository.SugarResideRepository;
-import ru.tyutterin.coffeemaker.repository.WaterResideRepository;
+import ru.tyutterin.coffeemaker.repository.*;
 import ru.tyutterin.coffeemaker.service.CoffeeMakerService;
+import ru.tyutterin.coffeemaker.service.CoffeeValidatorService;
+
+import java.util.List;
 
 @Service
 public class EspressoService extends AbstractCoffeeService {
 
-    public EspressoService(CoffeeMakerService coffeeMakerService, MilkResideRepository milkResideRepository,
-                           WaterResideRepository waterResideRepository, CoffeeRepository coffeeRepository,
-                           SugarResideRepository sugarResideRepository,
-                           @Value("${standard.portion.sugar}") int standardPortionSugar) {
-        super(coffeeMakerService, waterResideRepository, coffeeRepository, sugarResideRepository,
-                milkResideRepository, standardPortionSugar);
+    public EspressoService(CoffeeMakerRepository coffeeMakerRepository, CoffeeRepository coffeeRepository,
+                           List<CoffeeValidatorService> coffeeValidatorServices) {
+        super(coffeeMakerRepository, coffeeRepository, coffeeValidatorServices);
     }
 
     @Override

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.tyutterin.coffeemaker.dto.CoffeeMakerDto;
@@ -26,6 +27,7 @@ public class CoffeeMakerController {
     private final CoffeeMakerService coffeeMakerService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CoffeeMakerDto add(@Valid @RequestBody NewCoffeeMakerDto newCoffeeMakerDto) {
         CoffeeMaker coffeeMaker = coffeeMakerService.add(CoffeeMakerMapper.toModel(newCoffeeMakerDto));
         return CoffeeMakerMapper.toDto(coffeeMaker);
@@ -80,6 +82,11 @@ public class CoffeeMakerController {
     @PostMapping("/sugar")
     public void pourTheSugarFully(@RequestParam long coffeeMakerId) {
         coffeeMakerService.pourTheSugarFully(coffeeMakerId);
+    }
+
+    @PostMapping("/coffee")
+    public void pourTheCoffeeFully(@RequestParam long coffeeMakerId) {
+        coffeeMakerService.pourTheCoffeeFully(coffeeMakerId);
     }
 
 }

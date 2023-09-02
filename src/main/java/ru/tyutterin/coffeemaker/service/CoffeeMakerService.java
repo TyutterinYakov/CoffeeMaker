@@ -26,7 +26,5 @@ public interface CoffeeMakerService {
 
     void on(long coffeeMakerId);
 
-    CoffeeMaker findByIdAndCheckOn(long coffeeMakerId);
-
-    void checkTheFlushingRequirement(CoffeeMaker coffeeMaker);
+    void pourTheCoffeeFully(long coffeeMakerId);
 }

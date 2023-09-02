@@ -21,6 +21,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
     private final SugarResideRepository sugarResideRepository;
     private final WaterResideRepository waterResideRepository;
     private final FlushingRepository flushingRepository;
+    private final CoffeeResidueRepository coffeeResidueRepository;
 
 
     /* Проверки:
@@ -31,7 +32,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
     @Override
     public void flushingTheSystem(long coffeeMakerId) { //TODO exception
         CoffeeMaker coffeeMaker = findByIdAndCheckOn(coffeeMakerId);
-        int waterReside = waterResideRepository.sumByCoffeeMakerId(coffeeMakerId);
+        int waterReside = coffeeMaker.getWaterResidue();
         int amountOfWaterForFlushing = coffeeMaker.getAmountOfWaterForFlushing();
 
         int amountWaterAfterFlushing = waterReside - amountOfWaterForFlushing;
@@ -93,8 +94,17 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
         int shortageToTheWhole = getShortageToTheWhole(coffeeMakerId, sugarCompartment, sugarReside, "sugar");
 
         sugarResideRepository.save(new SugarResidue(coffeeMaker, shortageToTheWhole));
+    }
 
+    @Override
+    public void pourTheCoffeeFully(long coffeeMakerId) {
+        CoffeeMaker coffeeMaker = findByIdOrThrow(coffeeMakerId);
+        int coffeeReside = coffeeResidueRepository.sumByCoffeeMakerId(coffeeMakerId);
+        int coffeeCompartment = coffeeMaker.getSugarCompartment();
+        int shortageToTheWhole = getShortageToTheWhole(
+                coffeeMakerId, coffeeCompartment, coffeeReside, "coffee");
 
+        sugarResideRepository.save(new SugarResidue(coffeeMaker, shortageToTheWhole));
     }
 
     @Override
@@ -122,27 +132,6 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
         coffeeMaker.setOn(true);
     }
 
-    @Override
-    public CoffeeMaker findByIdAndCheckOn(long coffeeMakerId) {
-        CoffeeMaker coffeeMaker = findByIdOrThrow(coffeeMakerId);
-        if (!coffeeMaker.isOn()) {
-            throw new RuntimeException("CoffeeMaking with id " + coffeeMakerId + " is not on");
-        }
-        return coffeeMaker;
-    } //TODO exception
-
-    @Override
-    public void checkTheFlushingRequirement(CoffeeMaker coffeeMaker) {
-        int flushingTiming = coffeeMaker.getFlushingTiming();
-
-        boolean flushingWasCarriedOut = flushingRepository.existsByCoffeeMakerAndStartTimeAfterOrderByStartTime(
-                coffeeMaker, LocalDateTime.now().plusSeconds(flushingTiming));
-
-        if (!flushingWasCarriedOut) {
-            throw new RuntimeException("It is necessary to first flush the coffee maker id " + coffeeMaker.getId());
-        }
-
-    }
 
 
     private void updateFieldCoffeeMaker(CoffeeMaker updatedCoffeeMaker, CoffeeMaker coffeeMaker) {
@@ -177,6 +166,13 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
         return compartment - reside;
     }
 
+    private CoffeeMaker findByIdAndCheckOn(long coffeeMakerId) {
+        CoffeeMaker coffeeMaker = findByIdOrThrow(coffeeMakerId);
+        if (!coffeeMaker.isOn()) {
+            throw new RuntimeException("CoffeeMaking with id " + coffeeMakerId + " is not on");
+        }
+        return coffeeMaker;
+    } //TODO exception
 
 
 }

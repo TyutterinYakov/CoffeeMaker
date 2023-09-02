@@ -1,6 +1,7 @@
 package ru.tyutterin.coffeemaker.dto;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,8 +9,10 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@Schema(description = "Информация о кофеварке")
 public class CoffeeMakerDto {
     private Long id;
+    @Schema(description = "Информация о кофеварке")
     private String firm;
     private String model;
     private int milkCompartment;

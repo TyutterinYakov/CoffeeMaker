@@ -1,23 +1,23 @@
 package ru.tyutterin.coffeemaker.service.impl;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.tyutterin.coffeemaker.dto.NewCoffee;
 import ru.tyutterin.coffeemaker.model.entity.*;
 import ru.tyutterin.coffeemaker.repository.*;
 import ru.tyutterin.coffeemaker.service.CoffeeMakerService;
+import ru.tyutterin.coffeemaker.service.CoffeeValidatorService;
+
+import java.util.List;
 
 @Service
 public class CappuccinoService extends AbstractCoffeeService {
 
-
-    public CappuccinoService(CoffeeMakerService coffeeMakerService, WaterResideRepository waterResideRepository,
-                             CoffeeRepository coffeeRepository, SugarResideRepository sugarResideRepository,
-                             MilkResideRepository milkResideRepository,
-                             @Value("${standard.portion.sugar}") int standardPortionSugar) {
-        super(coffeeMakerService, waterResideRepository, coffeeRepository, sugarResideRepository,
-                milkResideRepository, standardPortionSugar);
+    public CappuccinoService(CoffeeMakerRepository coffeeMakerRepository, CoffeeRepository coffeeRepository,
+                             List<CoffeeValidatorService> coffeeValidatorServices) {
+        super(coffeeMakerRepository, coffeeRepository, coffeeValidatorServices);
     }
 
     @Override

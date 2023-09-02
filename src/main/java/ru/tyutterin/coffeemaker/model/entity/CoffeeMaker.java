@@ -21,7 +21,7 @@ public class CoffeeMaker {
     private int milkCompartment; //ml
     private int sugarCompartment; //gr
     private int waterCompartment; //ml
-    private int orderTiming; //seconds
+    private int coffeeCompartment; //gr
     private int flushingTiming; //seconds
     @Column(name = "turned_on")
     private boolean on; //true - on | false - off
@@ -32,21 +32,26 @@ public class CoffeeMaker {
     private int sugarResidue;
     @Transient
     private int waterResidue;
+    @Transient
+    private int coffeeResidue;
 
 
-    public CoffeeMaker(CoffeeMaker coffeeMaker, int milkResidue, int sugarResidue, int waterResidue) {
+    public CoffeeMaker(CoffeeMaker coffeeMaker, int milkResidue, int sugarResidue,
+                       int waterResidue, int coffeeResidue) {
         this.id = coffeeMaker.id;
         this.firm = coffeeMaker.firm;
         this.model = coffeeMaker.model;
         this.milkCompartment = coffeeMaker.milkCompartment;
         this.sugarCompartment = coffeeMaker.sugarCompartment;
         this.waterCompartment = coffeeMaker.waterCompartment;
-        this.orderTiming = coffeeMaker.orderTiming;
+        this.coffeeResidue = coffeeResidue;
         this.flushingTiming = coffeeMaker.flushingTiming;
         this.on = coffeeMaker.on;
         this.amountOfWaterForFlushing = coffeeMaker.amountOfWaterForFlushing;
         this.milkResidue = milkResidue;
         this.sugarResidue = sugarResidue;
         this.waterResidue = waterResidue;
+        this.coffeeCompartment = coffeeMaker.coffeeCompartment;
     }
+
 }
