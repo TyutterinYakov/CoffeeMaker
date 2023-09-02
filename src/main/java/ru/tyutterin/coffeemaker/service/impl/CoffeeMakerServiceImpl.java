@@ -33,7 +33,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
     * достаточно воды для промывки
     */
     @Override
-    public void flushingTheSystem(long coffeeMakerId) {
+    public void flushingTheSystem(long coffeeMakerId) { //TODO exception
         CoffeeMaker coffeeMaker = findByIdAndCheckOn(coffeeMakerId);
         int waterReside = waterResideRepository.sumByCoffeeMakerId(coffeeMakerId);
         int amountOfWaterForFlushing = coffeeMaker.getAmountOfWaterForFlushing();
@@ -144,6 +144,33 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
 
         if (waterReside - portion < 0) {
             throw new RuntimeException("Choose a smaller portion, or replenish the water");
+        }
+    }
+
+
+    @Override
+    public void checkTheAmountOfSugar(int sugar, CoffeeMaker coffeeMaker) {
+        if (coffeeMaker.getSugarCompartment() < sugar) {
+            throw new RuntimeException("Choose a smaller portion sugar, or choose a different coffee maker");
+        }
+
+        int sugarReside = sugarResideRepository.sumByCoffeeMakerId(coffeeMaker.getId());
+
+        if (sugarReside - sugar < 0) {
+            throw new RuntimeException("Choose a smaller portion, or replenish the sugar");
+        }
+    }
+
+    @Override
+    public void checkTheAmountOfMilk(int sizePortionMilk, CoffeeMaker coffeeMaker) {
+        if (coffeeMaker.getMilkCompartment() < sizePortionMilk) {
+            throw new RuntimeException("Choose a smaller portion sugar, or choose a different coffee maker");
+        }
+
+        int milkReside = milkResideRepository.sumByCoffeeMakerId(coffeeMaker.getId());
+
+        if (milkReside - sizePortionMilk < 0) {
+            throw new RuntimeException("Choose a smaller portion, or replenish the milk");
         }
     }
 
