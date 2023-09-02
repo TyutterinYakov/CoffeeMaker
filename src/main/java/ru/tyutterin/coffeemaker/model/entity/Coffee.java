@@ -14,7 +14,7 @@ public class Coffee {
     private Long id;
     @Enumerated(EnumType.STRING)
     private CoffeeType coffeeType;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private CoffeeMaker coffeeMaker;
 
 }

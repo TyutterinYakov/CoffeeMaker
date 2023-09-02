@@ -14,11 +14,11 @@ public interface CoffeeMakerService {
 
     List<CoffeeMaker> search(int from, int size);
 
-    CoffeeMaker pourTheMilkFully(long coffeeMakerId);
+    void pourTheMilkFully(long coffeeMakerId);
 
-    CoffeeMaker pourTheWaterFully(long coffeeMakerId);
+    void pourTheWaterFully(long coffeeMakerId);
 
-    CoffeeMaker pourTheSugarFully(long coffeeMakerId);
+    void pourTheSugarFully(long coffeeMakerId);
 
     List<CoffeeMaker> searchOnlyAvailable(int from, int size);
 

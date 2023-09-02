@@ -62,8 +62,8 @@ public class CoffeeMakerController {
     }
 
     @PostMapping("/milk")
-    public CoffeeMakerDto pourTheMilkFully(@RequestParam long coffeeMakerId) {
-        return CoffeeMakerMapper.toDto(coffeeMakerService.pourTheMilkFully(coffeeMakerId));
+    public void pourTheMilkFully(@RequestParam long coffeeMakerId) {
+        coffeeMakerService.pourTheMilkFully(coffeeMakerId);
     }
 
     @PostMapping("/flushing")
@@ -72,13 +72,13 @@ public class CoffeeMakerController {
     }
 
     @PostMapping("/water")
-    public CoffeeMakerDto pourTheWaterFully(@RequestParam long coffeeMakerId) {
-        return CoffeeMakerMapper.toDto(coffeeMakerService.pourTheWaterFully(coffeeMakerId));
+    public void pourTheWaterFully(@RequestParam long coffeeMakerId) {
+        coffeeMakerService.pourTheWaterFully(coffeeMakerId);
     }
 
     @PostMapping("/sugar")
-    public CoffeeMakerDto pourTheSugarFully(@RequestParam long coffeeMakerId) {
-        return CoffeeMakerMapper.toDto(coffeeMakerService.pourTheSugarFully(coffeeMakerId));
+    public void pourTheSugarFully(@RequestParam long coffeeMakerId) {
+        coffeeMakerService.pourTheSugarFully(coffeeMakerId);
     }
 
 }
