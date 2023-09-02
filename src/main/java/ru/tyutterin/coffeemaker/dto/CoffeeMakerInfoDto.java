@@ -18,7 +18,6 @@ public class CoffeeMakerInfoDto {
     private int waterCompartment;
     private Integer orderTiming; //seconds
     private Integer flushingTiming; //seconds
-    private Integer orderFlushingCount;
     private int milkResidue;
     private int sugarResidue;
     private int waterResidue;

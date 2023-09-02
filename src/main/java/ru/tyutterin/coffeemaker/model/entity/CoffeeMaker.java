@@ -23,7 +23,6 @@ public class CoffeeMaker {
     private int waterCompartment; //ml
     private int orderTiming; //seconds
     private int flushingTiming; //seconds
-    private int orderFlushingCount;
     @Column(name = "turned_on")
     private boolean on; //true - on | false - off
     private int amountOfWaterForFlushing;
@@ -44,7 +43,6 @@ public class CoffeeMaker {
         this.waterCompartment = coffeeMaker.waterCompartment;
         this.orderTiming = coffeeMaker.orderTiming;
         this.flushingTiming = coffeeMaker.flushingTiming;
-        this.orderFlushingCount = coffeeMaker.orderFlushingCount;
         this.on = coffeeMaker.on;
         this.amountOfWaterForFlushing = coffeeMaker.amountOfWaterForFlushing;
         this.milkResidue = milkResidue;

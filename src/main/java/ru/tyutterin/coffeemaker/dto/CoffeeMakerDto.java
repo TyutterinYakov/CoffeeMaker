@@ -17,5 +17,4 @@ public class CoffeeMakerDto {
     private int waterCompartment;
     private Integer orderTiming; //seconds
     private Integer flushingTiming; //seconds
-    private Integer orderFlushingCount;
 }

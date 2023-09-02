@@ -20,7 +20,6 @@ public class CoffeeMakerMapper {
                 .amountOfWaterForFlushing(newCoffeeMakerDto.getAmountOfWaterForFlushing())
                 .model(newCoffeeMakerDto.getModel())
                 .orderTiming(newCoffeeMakerDto.getOrderTiming())
-                .orderFlushingCount(newCoffeeMakerDto.getOrderFlushingCount())
                 .sugarCompartment(newCoffeeMakerDto.getSugarCompartment())
                 .waterCompartment(newCoffeeMakerDto.getWaterCompartment())
                 .build();
@@ -40,7 +39,6 @@ public class CoffeeMakerMapper {
                 .milkCompartment(coffeeMaker.getMilkCompartment())
                 .orderTiming(coffeeMaker.getOrderTiming())
                 .flushingTiming(coffeeMaker.getFlushingTiming())
-                .orderFlushingCount(coffeeMaker.getOrderFlushingCount())
                 .sugarCompartment(coffeeMaker.getSugarCompartment())
                 .waterCompartment(coffeeMaker.getWaterCompartment())
                 .model(coffeeMaker.getModel())
@@ -54,7 +52,6 @@ public class CoffeeMakerMapper {
                 .milkCompartment(coffeeMaker.getMilkCompartment())
                 .orderTiming(coffeeMaker.getOrderTiming())
                 .flushingTiming(coffeeMaker.getFlushingTiming())
-                .orderFlushingCount(coffeeMaker.getOrderFlushingCount())
                 .sugarCompartment(coffeeMaker.getSugarCompartment())
                 .waterCompartment(coffeeMaker.getWaterCompartment())
                 .model(coffeeMaker.getModel())

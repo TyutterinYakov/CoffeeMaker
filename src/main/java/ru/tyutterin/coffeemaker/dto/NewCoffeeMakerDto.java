@@ -33,8 +33,6 @@ public class NewCoffeeMakerDto {
     @Positive
     private int flushingTiming; //seconds
     @Positive
-    private int orderFlushingCount;
-    @Positive
     private int amountOfWaterForFlushing;
 
 }

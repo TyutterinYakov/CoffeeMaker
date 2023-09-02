@@ -7,7 +7,6 @@
         water_compartment INTEGER NOT NULL,
         order_timing INTEGER NOT NULL,
         flushing_timing INTEGER NOT NULL,
-        order_flushing_count INTEGER NOT NULL,
         turned_on BOOLEAN NOT NULL,
         amount_of_water_for_flushing INTEGER NOT NULL,
         CONSTRAINT pk_coffee_makers PRIMARY KEY (id)

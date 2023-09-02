@@ -9,6 +9,7 @@ import ru.tyutterin.coffeemaker.model.entity.*;
 import ru.tyutterin.coffeemaker.repository.*;
 import ru.tyutterin.coffeemaker.service.CoffeeMakerService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -133,9 +134,13 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
     @Override
     public void checkTheFlushingRequirement(CoffeeMaker coffeeMaker) {
         int flushingTiming = coffeeMaker.getFlushingTiming();
-        int orderFlushingCount = coffeeMaker.getOrderFlushingCount();
-        
 
+        boolean flushingWasCarriedOut = flushingRepository.existsByCoffeeMakerAndStartTimeAfterOrderByStartTime(
+                coffeeMaker, LocalDateTime.now().plusSeconds(flushingTiming));
+
+        if (!flushingWasCarriedOut) {
+            throw new RuntimeException("It is necessary to first flush the coffee maker id " + coffeeMaker.getId());
+        }
 
     }
 
