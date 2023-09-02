@@ -1,4 +1,4 @@
-package ru.tyutterin.coffeemaker.validation;
+package ru.tyutterin.coffeemaker.validation.str;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

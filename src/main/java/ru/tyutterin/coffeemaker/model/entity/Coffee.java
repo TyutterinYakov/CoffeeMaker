@@ -2,12 +2,16 @@ package ru.tyutterin.coffeemaker.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "coffee")
+@NoArgsConstructor
 public class Coffee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,5 +20,11 @@ public class Coffee {
     private CoffeeType coffeeType;
     @ManyToOne(fetch = FetchType.LAZY)
     private CoffeeMaker coffeeMaker;
+    private LocalDateTime created;
 
+
+    public Coffee(CoffeeType coffeeType, CoffeeMaker coffeeMaker) {
+        this.coffeeType = coffeeType;
+        this.coffeeMaker = coffeeMaker;
+    }
 }

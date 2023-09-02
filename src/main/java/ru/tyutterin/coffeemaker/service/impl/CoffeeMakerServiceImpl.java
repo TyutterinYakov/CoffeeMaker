@@ -34,18 +34,17 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
     */
     @Override
     public void flushingTheSystem(long coffeeMakerId) {
-        CoffeeMaker coffeeMaker = getByIdAndCheckOn(coffeeMakerId);
+        CoffeeMaker coffeeMaker = findByIdAndCheckOn(coffeeMakerId);
         int waterReside = waterResideRepository.sumByCoffeeMakerId(coffeeMakerId);
         int amountOfWaterForFlushing = coffeeMaker.getAmountOfWaterForFlushing();
 
         int amountWaterAfterFlushing = waterReside - amountOfWaterForFlushing;
 
-        if (amountWaterAfterFlushing > 0) {
-            waterResideRepository.save(new WaterResidue(coffeeMaker, -amountWaterAfterFlushing));
-        } else {
+        if (amountWaterAfterFlushing < 0) {
             throw new RuntimeException("There is not enough water in the coffee machine with id " + coffeeMakerId
                     + " for washing. First you need to top it up");
         }
+        waterResideRepository.save(new WaterResidue(coffeeMaker, -amountWaterAfterFlushing));
     }
 
     @Override
@@ -125,6 +124,29 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
         coffeeMaker.setOn(true);
     }
 
+    @Override
+    public CoffeeMaker findByIdAndCheckOn(long coffeeMakerId) {
+        CoffeeMaker coffeeMaker = findByIdOrThrow(coffeeMakerId);
+        if (!coffeeMaker.isOn()) {
+            throw new RuntimeException("CoffeeMaking with id " + coffeeMakerId + " is not on");
+        }
+        return coffeeMaker;
+    } //TODO exception
+
+
+    @Override
+    public void checkTheAmountOfWater(int portion, CoffeeMaker coffeeMaker) {
+        if (coffeeMaker.getWaterCompartment() < portion) {
+            throw new RuntimeException("Choose a smaller portion, or choose a different coffee maker");
+        }
+
+        int waterReside = waterResideRepository.sumByCoffeeMakerId(coffeeMaker.getId());
+
+        if (waterReside - portion < 0) {
+            throw new RuntimeException("Choose a smaller portion, or replenish the water");
+        }
+    }
+
 
     private void updateFieldCoffeeMaker(CoffeeMaker updatedCoffeeMaker, CoffeeMaker coffeeMaker) {
         String firm = updatedCoffeeMaker.getFirm();
@@ -148,13 +170,6 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
                 new NotFoundException(coffeeMakerId, CoffeeMaker.class));
     }
 
-    private CoffeeMaker getByIdAndCheckOn(long coffeeMakerId) {
-        CoffeeMaker coffeeMaker = findByIdOrThrow(coffeeMakerId);
-        if (!coffeeMaker.isOn()) {
-            throw new RuntimeException("CoffeeMaking with id " + coffeeMakerId + " is not on");
-        }
-        return coffeeMaker;
-    } //TODO exception
 
 
     //TODO exception
@@ -164,4 +179,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
         }
         return compartment - reside;
     }
+
+
+
 }

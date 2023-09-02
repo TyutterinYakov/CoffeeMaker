@@ -25,4 +25,8 @@ public interface CoffeeMakerService {
     void off(long coffeeMakerId);
 
     void on(long coffeeMakerId);
+
+    CoffeeMaker findByIdAndCheckOn(long coffeeMakerId);
+
+    void checkTheAmountOfWater(int portion, CoffeeMaker coffeeMaker);
 }

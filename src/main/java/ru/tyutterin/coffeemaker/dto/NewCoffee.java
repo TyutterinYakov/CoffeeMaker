@@ -2,6 +2,7 @@ package ru.tyutterin.coffeemaker.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,10 @@ public class NewCoffee {
     private Long coffeeMakerId;
     @NotNull
     private CoffeeType coffeeType;
+    @PositiveOrZero
+    private int sugar;
     @Positive
-    private Integer sugar;
+    private Integer portionMilk; //how many times more than the standard
     @Positive
-    private Integer portionMilk;
-    @Positive
-    private Integer sizePortion;
+    private int sizePortion = 350; //milk + water or only water(espresso)
 }
