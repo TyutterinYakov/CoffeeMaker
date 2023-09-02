@@ -28,9 +28,5 @@ public interface CoffeeMakerService {
 
     CoffeeMaker findByIdAndCheckOn(long coffeeMakerId);
 
-    void checkTheAmountOfWater(int portion, CoffeeMaker coffeeMaker);
-
-    void checkTheAmountOfSugar(int sizePortionSugar, CoffeeMaker coffeeMaker);
-
-    void checkTheAmountOfMilk(int sizePortionSugar, CoffeeMaker coffeeMaker);
+    void checkTheFlushingRequirement(CoffeeMaker coffeeMaker);
 }

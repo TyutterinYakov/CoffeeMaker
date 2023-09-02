@@ -8,7 +8,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class CoffeeMakerDto {
+public class CoffeeMakerInfoDto {
+
     private Long id;
     private String firm;
     private String model;
@@ -18,4 +19,7 @@ public class CoffeeMakerDto {
     private Integer orderTiming; //seconds
     private Integer flushingTiming; //seconds
     private Integer orderFlushingCount;
+    private int milkResidue;
+    private int sugarResidue;
+    private int waterResidue;
 }

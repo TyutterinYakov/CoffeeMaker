@@ -19,6 +19,7 @@ public class Coffee {
     @Enumerated(EnumType.STRING)
     private CoffeeType coffeeType;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coffee_maker_id")
     private CoffeeMaker coffeeMaker;
     private LocalDateTime created;
 

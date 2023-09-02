@@ -17,6 +17,7 @@ public class SugarResidue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coffee_maker_id")
     private CoffeeMaker coffeeMaker;
     @CreationTimestamp
     private LocalDateTime fallTime;

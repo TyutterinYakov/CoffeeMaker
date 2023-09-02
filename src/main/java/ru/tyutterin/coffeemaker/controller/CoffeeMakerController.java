@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.tyutterin.coffeemaker.dto.CoffeeMakerDto;
+import ru.tyutterin.coffeemaker.dto.CoffeeMakerInfoDto;
 import ru.tyutterin.coffeemaker.dto.NewCoffeeMakerDto;
 import ru.tyutterin.coffeemaker.dto.UpdateCoffeeMakerDto;
 import ru.tyutterin.coffeemaker.mapper.CoffeeMakerMapper;
@@ -48,16 +49,16 @@ public class CoffeeMakerController {
     }
 
     @GetMapping
-    public List<CoffeeMakerDto> searchAll(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                       @RequestParam(defaultValue = "10") @Positive int size) {
-        return CoffeeMakerMapper.toDto(coffeeMakerService.search(from, size));
+    public List<CoffeeMakerInfoDto> searchAll(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                              @RequestParam(defaultValue = "10") @Positive int size) {
+        return CoffeeMakerMapper.toInfoDto(coffeeMakerService.search(from, size));
 
     }
 
     @GetMapping("/available")
-    public List<CoffeeMakerDto> searchOnlyAvailable(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
+    public List<CoffeeMakerInfoDto> searchOnlyAvailable(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                           @RequestParam(defaultValue = "10") @Positive int size) {
-        return CoffeeMakerMapper.toDto(coffeeMakerService.searchOnlyAvailable(from, size));
+        return CoffeeMakerMapper.toInfoDto(coffeeMakerService.searchOnlyAvailable(from, size));
 
     }
 

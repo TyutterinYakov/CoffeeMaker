@@ -3,6 +3,7 @@ package ru.tyutterin.coffeemaker.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tyutterin.coffeemaker.dto.CoffeeDto;
 import ru.tyutterin.coffeemaker.dto.NewCoffee;
@@ -16,6 +17,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/coffee")
 public class CoffeeController {
 
     private final Map<CoffeeType, CoffeeService> coffeeServices;
@@ -26,7 +28,7 @@ public class CoffeeController {
     }
 
 
-    @PostMapping("/coffee")
+    @PostMapping
     public CoffeeDto create(@Valid NewCoffee newCoffee) {
         CoffeeService coffeeService = coffeeServices.get(newCoffee.getCoffeeType());
         if (coffeeService == null) {

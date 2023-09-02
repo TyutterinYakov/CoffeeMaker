@@ -8,6 +8,9 @@ import ru.tyutterin.coffeemaker.model.entity.Coffee;
 public class CoffeeMapper {
 
     public static CoffeeDto toDto(Coffee coffee) {
-        return null; //TODO
+        return CoffeeDto.builder()
+                .coffeeType(coffee.getCoffeeType())
+                .coffeeMaker(CoffeeMakerMapper.toDto(coffee.getCoffeeMaker()))
+                .build();
     }
 }

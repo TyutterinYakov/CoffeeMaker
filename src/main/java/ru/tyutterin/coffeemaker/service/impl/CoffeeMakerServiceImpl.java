@@ -5,14 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.tyutterin.coffeemaker.exception.NotFoundException;
-import ru.tyutterin.coffeemaker.model.entity.CoffeeMaker;
-import ru.tyutterin.coffeemaker.model.entity.MilkResidue;
-import ru.tyutterin.coffeemaker.model.entity.SugarResidue;
-import ru.tyutterin.coffeemaker.model.entity.WaterResidue;
-import ru.tyutterin.coffeemaker.repository.CoffeeMakerRepository;
-import ru.tyutterin.coffeemaker.repository.MilkResideRepository;
-import ru.tyutterin.coffeemaker.repository.SugarResideRepository;
-import ru.tyutterin.coffeemaker.repository.WaterResideRepository;
+import ru.tyutterin.coffeemaker.model.entity.*;
+import ru.tyutterin.coffeemaker.repository.*;
 import ru.tyutterin.coffeemaker.service.CoffeeMakerService;
 
 import java.util.List;
@@ -25,6 +19,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
     private final MilkResideRepository milkResideRepository;
     private final SugarResideRepository sugarResideRepository;
     private final WaterResideRepository waterResideRepository;
+    private final FlushingRepository flushingRepository;
 
 
     /* Проверки:
@@ -45,6 +40,8 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
                     + " for washing. First you need to top it up");
         }
         waterResideRepository.save(new WaterResidue(coffeeMaker, -amountWaterAfterFlushing));
+        flushingRepository.save(new FlushingCoffeeMaker(coffeeMaker));
+
     }
 
     @Override
@@ -64,7 +61,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
 
     @Override
     public List<CoffeeMaker> search(int from, int size) {
-        return coffeeMakerRepository.findAll(page(from, size)).getContent();
+        return coffeeMakerRepository.findAllInfo(page(from, size));
     }
 
     @Override
@@ -101,7 +98,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
 
     @Override
     public List<CoffeeMaker> searchOnlyAvailable(int from, int size) { //TODO sql
-        return null;
+        return coffeeMakerRepository.findAllInfo(page(from, size));
     }
 
     @Override
@@ -133,45 +130,13 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
         return coffeeMaker;
     } //TODO exception
 
-
     @Override
-    public void checkTheAmountOfWater(int portion, CoffeeMaker coffeeMaker) {
-        if (coffeeMaker.getWaterCompartment() < portion) {
-            throw new RuntimeException("Choose a smaller portion, or choose a different coffee maker");
-        }
-
-        int waterReside = waterResideRepository.sumByCoffeeMakerId(coffeeMaker.getId());
-
-        if (waterReside - portion < 0) {
-            throw new RuntimeException("Choose a smaller portion, or replenish the water");
-        }
-    }
+    public void checkTheFlushingRequirement(CoffeeMaker coffeeMaker) {
+        int flushingTiming = coffeeMaker.getFlushingTiming();
+        int orderFlushingCount = coffeeMaker.getOrderFlushingCount();
+        
 
 
-    @Override
-    public void checkTheAmountOfSugar(int sugar, CoffeeMaker coffeeMaker) {
-        if (coffeeMaker.getSugarCompartment() < sugar) {
-            throw new RuntimeException("Choose a smaller portion sugar, or choose a different coffee maker");
-        }
-
-        int sugarReside = sugarResideRepository.sumByCoffeeMakerId(coffeeMaker.getId());
-
-        if (sugarReside - sugar < 0) {
-            throw new RuntimeException("Choose a smaller portion, or replenish the sugar");
-        }
-    }
-
-    @Override
-    public void checkTheAmountOfMilk(int sizePortionMilk, CoffeeMaker coffeeMaker) {
-        if (coffeeMaker.getMilkCompartment() < sizePortionMilk) {
-            throw new RuntimeException("Choose a smaller portion sugar, or choose a different coffee maker");
-        }
-
-        int milkReside = milkResideRepository.sumByCoffeeMakerId(coffeeMaker.getId());
-
-        if (milkReside - sizePortionMilk < 0) {
-            throw new RuntimeException("Choose a smaller portion, or replenish the milk");
-        }
     }
 
 
