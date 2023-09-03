@@ -1,7 +1,7 @@
 //package ru.tyutterin.coffeemaker.controller;
 //
-//import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +17,7 @@
 //import java.util.Map;
 //
 //import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.when;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
