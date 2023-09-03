@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Schema(description = "Готовый кофе")
+@ToString
 public class CoffeeDto {
     @Schema(description = "Тип приготовленного кофе")
     private CoffeeType coffeeType;

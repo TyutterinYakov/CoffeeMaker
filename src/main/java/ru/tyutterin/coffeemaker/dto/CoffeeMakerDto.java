@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @Builder
 @Schema(description = "Информация о кофеварке")
+@ToString
 public class CoffeeMakerDto {
 
     @Schema(description = "Идентификатор кофеварки")
@@ -30,4 +31,6 @@ public class CoffeeMakerDto {
     private Integer flushingTiming; //seconds
     @Schema(description = "Индикатор включения")
     private boolean on;
+    @Schema(description = "Требуемое количество воды для промывки")
+    private int amountOfWaterForFlushing;
 }

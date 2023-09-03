@@ -2,11 +2,12 @@ package ru.tyutterin.coffeemaker.service.impl.validation;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.tyutterin.coffeemaker.dto.NewCoffee;
+import ru.tyutterin.coffeemaker.dto.NewCoffeeDto;
 import ru.tyutterin.coffeemaker.model.entity.CoffeeMaker;
 import ru.tyutterin.coffeemaker.model.entity.WaterResidue;
 import ru.tyutterin.coffeemaker.repository.WaterResideRepository;
 import ru.tyutterin.coffeemaker.service.CoffeeValidatorService;
+
 
 @Service
 public class CoffeeValidatorServiceWater implements CoffeeValidatorService {
@@ -21,7 +22,7 @@ public class CoffeeValidatorServiceWater implements CoffeeValidatorService {
         this.waterResideRepository = waterResideRepository;
     }
     @Override
-    public void checkTheAmount(NewCoffee newCoffee, CoffeeMaker coffeeMaker) {
+    public void checkTheAmount(NewCoffeeDto newCoffee, CoffeeMaker coffeeMaker) {
         int sizePortion = newCoffee.getSizePortion();
 
         Integer portionMilk = newCoffee.getPortionMilk();
@@ -34,7 +35,7 @@ public class CoffeeValidatorServiceWater implements CoffeeValidatorService {
             throw new RuntimeException("Choose a smaller portion, or choose a different coffee maker");
         }
 
-        int waterReside = coffeeMaker.getWaterResidue();
+        long waterReside = coffeeMaker.getWaterResidue();
 
         if (waterReside - sizePortion < 0) {
             throw new RuntimeException("Choose a smaller portion, or replenish the water");

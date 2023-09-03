@@ -6,5 +6,14 @@ import ru.tyutterin.coffeemaker.model.entity.MilkResidue;
 
 public interface MilkResideRepository extends JpaRepository<MilkResidue, Long> {
     @Query("SELECT sum(m.quantity) from MilkResidue m")
-    int sumByCoffeeMakerId(long coffeeMakerId);
+    Integer sumOrNullByCoffeeMakerId(long coffeeMakerId);
+
+
+    default int sumByCoffeeMakerId(long coffeeMakerId) {
+        Integer sum = sumOrNullByCoffeeMakerId(coffeeMakerId);
+        if (sum != null) {
+            return sum;
+        }
+        return 0;
+    }
 }

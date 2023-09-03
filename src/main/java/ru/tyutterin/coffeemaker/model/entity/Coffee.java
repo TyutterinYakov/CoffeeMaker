@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ public class Coffee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coffee_maker_id")
     private CoffeeMaker coffeeMaker;
+    @CreationTimestamp
     private LocalDateTime created;
 
 

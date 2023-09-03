@@ -1,12 +1,11 @@
 package ru.tyutterin.coffeemaker.service.impl;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.tyutterin.coffeemaker.dto.NewCoffee;
+import ru.tyutterin.coffeemaker.dto.NewCoffeeDto;
+import ru.tyutterin.coffeemaker.exception.BadRequestException;
 import ru.tyutterin.coffeemaker.model.entity.*;
 import ru.tyutterin.coffeemaker.repository.*;
-import ru.tyutterin.coffeemaker.service.CoffeeMakerService;
 import ru.tyutterin.coffeemaker.service.CoffeeValidatorService;
 
 import java.util.List;
@@ -21,9 +20,9 @@ public class EspressoService extends AbstractCoffeeService {
 
     @Override
     @Transactional
-    public Coffee build(NewCoffee newCoffee) {
+    public Coffee build(NewCoffeeDto newCoffee) {
         if (newCoffee.getPortionMilk() != null) {
-            throw new RuntimeException("Check out the recipe. Espresso is made without milk");
+            throw new BadRequestException("Check out the recipe. Espresso is made without milk");
         }
         return super.build(newCoffee);
     }

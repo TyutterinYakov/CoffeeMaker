@@ -27,30 +27,31 @@ public class CoffeeMaker {
     private boolean on; //true - on | false - off
     private int amountOfWaterForFlushing;
     @Transient
-    private int milkResidue;
+    private long milkResidue;
     @Transient
-    private int sugarResidue;
+    private long sugarResidue;
     @Transient
-    private int waterResidue;
+    private long waterResidue;
     @Transient
-    private int coffeeResidue;
+    private long coffeeResidue;
 
 
-    public CoffeeMaker(CoffeeMaker coffeeMaker, int milkResidue, int sugarResidue,
-                       int waterResidue, int coffeeResidue) {
+    public CoffeeMaker(CoffeeMaker coffeeMaker, Long milkResidue, Long sugarResidue,
+                       Long waterResidue, Long coffeeResidue) {
+
         this.id = coffeeMaker.id;
         this.firm = coffeeMaker.firm;
         this.model = coffeeMaker.model;
         this.milkCompartment = coffeeMaker.milkCompartment;
         this.sugarCompartment = coffeeMaker.sugarCompartment;
         this.waterCompartment = coffeeMaker.waterCompartment;
-        this.coffeeResidue = coffeeResidue;
         this.flushingTiming = coffeeMaker.flushingTiming;
         this.on = coffeeMaker.on;
         this.amountOfWaterForFlushing = coffeeMaker.amountOfWaterForFlushing;
-        this.milkResidue = milkResidue;
-        this.sugarResidue = sugarResidue;
-        this.waterResidue = waterResidue;
+        if (milkResidue != null) this.milkResidue = milkResidue;
+        if (sugarResidue != null) this.sugarResidue = sugarResidue;
+        if (waterResidue != null) this.waterResidue = waterResidue;
+        if (coffeeResidue != null) this.coffeeResidue = coffeeResidue;
         this.coffeeCompartment = coffeeMaker.coffeeCompartment;
     }
 

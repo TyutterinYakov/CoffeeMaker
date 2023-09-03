@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface FlushingRepository extends JpaRepository<FlushingCoffeeMaker, Long> {
 
 
-    boolean existsByCoffeeMakerAndStartTimeAfterOrderByStartTime(CoffeeMaker coffeeMaker, LocalDateTime localDateTime);
+    boolean existsByCoffeeMakerAndStartTimeAfter(CoffeeMaker coffeeMaker, LocalDateTime localDateTime);
 }

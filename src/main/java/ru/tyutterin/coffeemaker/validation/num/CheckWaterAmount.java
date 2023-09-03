@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface CheckWaterAmount {
 
     String message() default
-            "there should be enough water for washing(waterCompartment - amountOfWaterForFlushing >= 0)";
+            "There should be enough water for washing(waterCompartment - amountOfWaterForFlushing >= 0)";
 
     Class<?>[] groups() default {};
 

@@ -21,31 +21,22 @@ public interface CoffeeMakerRepository extends JpaRepository<CoffeeMaker, Long> 
     List<CoffeeMaker> findAllInfo(PageRequest pageRequest);
 
     @Query("select new ru.tyutterin.coffeemaker.model.entity.CoffeeMaker(" +
-                "c, " +
-                "sum(m), " +
-                "sum(s), " +
-                "sum(w)," +
-                "sum(cof)" +
-            ") from CoffeeMaker c " +
-                "left join MilkResidue m ON (m.coffeeMaker = c) " +
-                "left join SugarResidue s ON (s.coffeeMaker = c) " +
-                "left join WaterResidue w ON (w.coffeeMaker = c) " +
-                "left join CoffeeResidue cof ON (cof.coffeeMaker = c) " +
-            "where c.on = true")
+            "c, " +
+            "(SELECT sum(m.quantity) from MilkResidue m where m.coffeeMaker = c), " +
+            "(SELECT sum(s.quantity) from SugarResidue s where s.coffeeMaker = c), " +
+            "(SELECT sum(w.quantity) from WaterResidue w where w.coffeeMaker = c)," +
+            "(SELECT sum(cof.quantity) from CoffeeResidue cof where cof.coffeeMaker = c)" +
+            ") from CoffeeMaker c where c.on = true")
     List<CoffeeMaker> findAllInfoOnlyAvailable(PageRequest page);
+
 
 
     @Query("select new ru.tyutterin.coffeemaker.model.entity.CoffeeMaker(" +
             "c, " +
-            "sum(m), " +
-            "sum(s), " +
-            "sum(w)," +
-            "sum(cof)" +
-            ") from CoffeeMaker c " +
-            "left join MilkResidue m ON (m.coffeeMaker = c) " +
-            "left join SugarResidue s ON (s.coffeeMaker = c) " +
-            "left join WaterResidue w ON (w.coffeeMaker = c) " +
-            "left join CoffeeResidue cof ON (cof.coffeeMaker = c) " +
-            "where c.on = true and c.id = ?1")
-    Optional<CoffeeMaker> findByIdAndOn(long coffeeMakerId);
+            "(SELECT sum(m.quantity) from MilkResidue m where m.coffeeMaker = c), " +
+            "(SELECT sum(s.quantity) from SugarResidue s where s.coffeeMaker = c), " +
+            "(SELECT sum(w.quantity) from WaterResidue w where w.coffeeMaker = c)," +
+            "(SELECT sum(cof.quantity) from CoffeeResidue cof where cof.coffeeMaker = c)" +
+            ") from CoffeeMaker c where c.on = true and c.id = ?1")
+    CoffeeMaker findByIdAndOn(long coffeeMakerId);
 }

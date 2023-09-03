@@ -2,10 +2,7 @@ package ru.tyutterin.coffeemaker.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.tyutterin.coffeemaker.validation.num.CheckWaterAmount;
 
 import static ru.tyutterin.coffeemaker.validation.Constant.MAX_SIZE_FIRM_MAKER;
@@ -17,6 +14,7 @@ import static ru.tyutterin.coffeemaker.validation.Constant.MAX_SIZE_MODEL_MAKER;
 @NoArgsConstructor
 @CheckWaterAmount
 @Schema(description = "Создание кофеварки")
+@ToString
 public class NewCoffeeMakerDto {
 
     @Schema(description = "Фирма кофеварки")

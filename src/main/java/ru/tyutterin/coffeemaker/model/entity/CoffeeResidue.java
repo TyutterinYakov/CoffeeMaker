@@ -22,9 +22,9 @@ public class CoffeeResidue {
     private CoffeeMaker coffeeMaker;
     @CreationTimestamp
     private LocalDateTime fallTime;
-    private int quantity;
+    private long quantity;
 
-    public CoffeeResidue(CoffeeMaker coffeeMaker, int quantity) {
+    public CoffeeResidue(CoffeeMaker coffeeMaker, long quantity) {
         this.coffeeMaker = coffeeMaker;
         this.quantity = quantity;
     }

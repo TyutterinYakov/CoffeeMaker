@@ -1,7 +1,7 @@
 package ru.tyutterin.coffeemaker.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import ru.tyutterin.coffeemaker.dto.NewCoffee;
+import ru.tyutterin.coffeemaker.dto.NewCoffeeDto;
 import ru.tyutterin.coffeemaker.exception.NotFoundException;
 import ru.tyutterin.coffeemaker.model.entity.*;
 import ru.tyutterin.coffeemaker.repository.CoffeeMakerRepository;
@@ -19,10 +19,12 @@ public abstract class AbstractCoffeeService implements CoffeeService {
     private final List<CoffeeValidatorService> coffeeValidatorServices;
 
     @Override
-    public Coffee build(NewCoffee newCoffee) {
+    public Coffee build(NewCoffeeDto newCoffee) {
         Long coffeeMakerId = newCoffee.getCoffeeMakerId();
-        CoffeeMaker coffeeMaker = coffeeMakerRepository.findByIdAndOn(coffeeMakerId).orElseThrow(() ->
-                new NotFoundException(coffeeMakerId, CoffeeMaker.class));
+        CoffeeMaker coffeeMaker = coffeeMakerRepository.findByIdAndOn(coffeeMakerId);
+        if (coffeeMaker == null) {
+            throw new NotFoundException(coffeeMakerId, CoffeeMaker.class);
+        }
         coffeeValidatorServices.forEach(val -> val.checkTheAmount(newCoffee, coffeeMaker));
         return coffeeRepository.save(new Coffee(newCoffee.getCoffeeType(), coffeeMaker));
     }

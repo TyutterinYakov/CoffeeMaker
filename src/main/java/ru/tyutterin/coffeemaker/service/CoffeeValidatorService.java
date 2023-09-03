@@ -1,8 +1,11 @@
 package ru.tyutterin.coffeemaker.service;
 
-import ru.tyutterin.coffeemaker.dto.NewCoffee;
+import org.springframework.validation.FieldError;
+import ru.tyutterin.coffeemaker.dto.NewCoffeeDto;
 import ru.tyutterin.coffeemaker.model.entity.CoffeeMaker;
 
+import java.util.List;
+
 public interface CoffeeValidatorService {
-    void checkTheAmount(NewCoffee newCoffee, CoffeeMaker coffeeMaker);
+    void checkTheAmount(NewCoffeeDto newCoffee, CoffeeMaker coffeeMaker);
 }

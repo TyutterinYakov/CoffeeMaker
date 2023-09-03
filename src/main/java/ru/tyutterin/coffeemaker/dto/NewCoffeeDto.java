@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.tyutterin.coffeemaker.model.entity.CoffeeType;
 
 @Getter
@@ -15,7 +12,8 @@ import ru.tyutterin.coffeemaker.model.entity.CoffeeType;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Параметры для создания кофе")
-public class NewCoffee {
+@ToString
+public class NewCoffeeDto {
 
     @NotNull
     @Schema(description = "Идентификатор кофемашины, на которой он будет готовиться")
@@ -26,12 +24,11 @@ public class NewCoffee {
     @PositiveOrZero
     @Schema(description = "Количество порций сахара(одна - 4г)")
     private int sugar;
-    @Positive
     @Schema(description = "Количество стандартных порций(33% от всего объема)")
     private Integer portionMilk;
     @Positive
     @Schema(description = "Количество стандартных порций кофе(16% от всего объема)")
-    private Integer portionCoffee;
+    private int portionCoffee = 1;
     @Positive
     @Schema(description = "Размер порции, в мл")
     private int sizePortion = 350; //milk + water or only water(espresso)

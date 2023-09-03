@@ -42,6 +42,7 @@ public class CoffeeMakerMapper {
                 .waterCompartment(coffeeMaker.getWaterCompartment())
                 .coffeeCompartment(coffeeMaker.getCoffeeCompartment())
                 .model(coffeeMaker.getModel())
+                .amountOfWaterForFlushing(coffeeMaker.getAmountOfWaterForFlushing())
                 .on(coffeeMaker.isOn())
                 .build();
     }
@@ -60,6 +61,7 @@ public class CoffeeMakerMapper {
                 .sugarResidue(coffeeMaker.getSugarResidue())
                 .waterResidue(coffeeMaker.getWaterResidue())
                 .coffeeResidue(coffeeMaker.getCoffeeResidue())
+                .amountOfWaterForFlushing(coffeeMaker.getAmountOfWaterForFlushing())
                 .on(coffeeMaker.isOn())
                 .build();
     }

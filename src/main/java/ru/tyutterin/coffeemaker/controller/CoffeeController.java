@@ -2,19 +2,19 @@ package ru.tyutterin.coffeemaker.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.tyutterin.coffeemaker.dto.CoffeeDto;
-import ru.tyutterin.coffeemaker.dto.NewCoffee;
+import ru.tyutterin.coffeemaker.dto.NewCoffeeDto;
+import ru.tyutterin.coffeemaker.exception.ApiError;
 import ru.tyutterin.coffeemaker.exception.BadRequestException;
 import ru.tyutterin.coffeemaker.mapper.CoffeeMapper;
 import ru.tyutterin.coffeemaker.model.entity.CoffeeType;
@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/coffee/order")
 @Tag(name = "Работа с кофе",
         description = "API для работы с кофе")
+@Slf4j
 public class CoffeeController {
 
     private final Map<CoffeeType, CoffeeService> coffeeServices;
@@ -41,16 +42,28 @@ public class CoffeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Заказ кофе", description = "Передаем параметры для создания кофе")
-    @Parameter(name = "coffeeMakerId", description = "Идентификатор кофемашины, на которой он будет готовиться")
-    @Parameter(name = "coffeeType", description = "Тип кофе, например, CAPPUCCINO, ESPRESSO")
-    @Parameter(name = "sugar", description = "Количество порций сахара(одна - 4г)")
-    @Parameter(name = "portionMilk", description = "Количество стандартных порций(33% от всего объема)")
-    @Parameter(name = "portionCoffee", description = "Количество стандартных порций кофе(16% от всего объема)")
-    @Parameter(name = "sizePortion", description = "Размер порции, в мл")
+    @Operation(summary = "Создание кофе")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Конфигурация кофе", content =
+    @Content(mediaType = "application/json", schema = @Schema(implementation = NewCoffeeDto.class)))
     @ApiResponse(responseCode = "201", description = "Кофе готов",
             content = @Content(schema = @Schema(implementation = CoffeeDto.class)))
-    public CoffeeDto create(@Valid NewCoffee newCoffee) {
+    @ApiResponse(responseCode = "400", description = "Check out the recipe. Cappuccino is made with milk", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class), examples =
+            @ExampleObject(value = "{\"status\":\"BAD_REQUEST\",\"reason\":\"For the requested operation the conditions are not met.\"," +
+                    "\"message\":\"Check out the recipe. Cappuccino is made with milk\",\"timestamp\":\"2023-09-03 16:56:19\"}"))
+    })
+    @ApiResponse(responseCode = "404", description = "Id: 33 | Name: CoffeeMaker", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class), examples =
+            @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"reason\":\"Not found exception.\"," +
+                    "\"message\":\"Id: 33 | Name: CoffeeMaker\",\"timestamp\":\"2023-09-03 16:56:19\"}"))
+    })
+    @ApiResponse(responseCode = "400", description = "Choose a smaller portion, or replenish the coffee", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class), examples =
+            @ExampleObject(value = "{\"status\":\"BAD_REQUEST\",\"reason\":\"For the requested operation the conditions are not met.\"," +
+                    "\"message\":\"Choose a smaller portion, or replenish the coffee\",\"timestamp\":\"2023-09-03 16:56:19\"}"))
+    })
+    public CoffeeDto create(@Valid @RequestBody NewCoffeeDto newCoffee, HttpServletRequest request) {
+        log.info("{} {} {}", request.getMethod(), request.getContextPath(), newCoffee);
         CoffeeService coffeeService = coffeeServices.get(newCoffee.getCoffeeType());
         if (coffeeService == null) {
             throw new BadRequestException("Такой кофе пока что отсутствует в нашей системе, " +
