@@ -14,6 +14,7 @@ import ru.tyutterin.coffeemaker.model.entity.CoffeeType;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Параметры для создания кофе")
 public class NewCoffee {
 
     @NotNull
@@ -29,7 +30,7 @@ public class NewCoffee {
     @Schema(description = "Количество стандартных порций(33% от всего объема)")
     private Integer portionMilk;
     @Positive
-    @Schema(description = "Количество стандартных порций кофе(16,6% от всего объема)")
+    @Schema(description = "Количество стандартных порций кофе(16% от всего объема)")
     private Integer portionCoffee;
     @Positive
     @Schema(description = "Размер порции, в мл")

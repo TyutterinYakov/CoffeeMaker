@@ -21,6 +21,7 @@ public class CoffeeMakerMapper {
                 .model(newCoffeeMakerDto.getModel())
                 .sugarCompartment(newCoffeeMakerDto.getSugarCompartment())
                 .waterCompartment(newCoffeeMakerDto.getWaterCompartment())
+                .coffeeCompartment(newCoffeeMakerDto.getCoffeeCompartment())
                 .build();
     }
 
@@ -39,7 +40,9 @@ public class CoffeeMakerMapper {
                 .flushingTiming(coffeeMaker.getFlushingTiming())
                 .sugarCompartment(coffeeMaker.getSugarCompartment())
                 .waterCompartment(coffeeMaker.getWaterCompartment())
+                .coffeeCompartment(coffeeMaker.getCoffeeCompartment())
                 .model(coffeeMaker.getModel())
+                .on(coffeeMaker.isOn())
                 .build();
     }
 
@@ -51,10 +54,13 @@ public class CoffeeMakerMapper {
                 .flushingTiming(coffeeMaker.getFlushingTiming())
                 .sugarCompartment(coffeeMaker.getSugarCompartment())
                 .waterCompartment(coffeeMaker.getWaterCompartment())
+                .coffeeCompartment(coffeeMaker.getCoffeeCompartment())
                 .model(coffeeMaker.getModel())
                 .milkResidue(coffeeMaker.getMilkResidue())
                 .sugarResidue(coffeeMaker.getSugarResidue())
                 .waterResidue(coffeeMaker.getWaterResidue())
+                .coffeeResidue(coffeeMaker.getCoffeeResidue())
+                .on(coffeeMaker.isOn())
                 .build();
     }
 
