@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  app:
+    build: ./
+    container_name: coffee-maker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - coffee-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://coffee-db:5432/coffee-db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+
+  coffee-db:
+    image: postgres:14-alpine
+    container_name: postgres-coffee-db
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=coffee-db

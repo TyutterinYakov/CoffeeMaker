@@ -13,6 +13,7 @@ import ru.tyutterin.coffeemaker.model.entity.CoffeeType;
 @NoArgsConstructor
 @Schema(description = "Параметры для создания кофе")
 @ToString
+@Builder
 public class NewCoffeeDto {
 
     @NotNull

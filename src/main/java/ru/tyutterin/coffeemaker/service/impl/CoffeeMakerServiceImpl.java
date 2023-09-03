@@ -3,6 +3,7 @@ package ru.tyutterin.coffeemaker.service.impl;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.tyutterin.coffeemaker.exception.BadRequestException;
 import ru.tyutterin.coffeemaker.exception.NotFoundException;
@@ -42,7 +43,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
             throw new BadRequestException("There is not enough water in the coffee machine with id " + coffeeMakerId
                     + " for washing. First you need to top it up");
         }
-        waterResideRepository.save(new WaterResidue(coffeeMaker, -amountWaterAfterFlushing));
+        waterResideRepository.save(new WaterResidue(coffeeMaker, -amountOfWaterForFlushing));
         flushingRepository.save(new FlushingCoffeeMaker(coffeeMaker));
 
     }
@@ -149,7 +150,7 @@ public class CoffeeMakerServiceImpl implements CoffeeMakerService {
 
 
     private static PageRequest page(int from, int size) {
-        return PageRequest.of(from > 0 ? from / size : 0, size);
+        return PageRequest.of(from > 0 ? from / size : 0, size).withSort(Sort.unsorted());
     }
 
     private CoffeeMaker findByIdOrThrow(long coffeeMakerId) {

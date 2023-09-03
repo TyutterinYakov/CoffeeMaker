@@ -1,9 +1,7 @@
 package ru.tyutterin.coffeemaker.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -13,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "coffee")
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Coffee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
