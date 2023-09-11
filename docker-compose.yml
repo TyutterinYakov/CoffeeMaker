@@ -20,3 +20,5 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=coffee-db
+    ports:
+      - "5432:5432"

@@ -36,8 +36,8 @@ public class CoffeeMaker {
     private long coffeeResidue;
 
 
-    public CoffeeMaker(CoffeeMaker coffeeMaker, Long milkResidue, Long sugarResidue,
-                       Long waterResidue, Long coffeeResidue) {
+    public CoffeeMaker(CoffeeMaker coffeeMaker, long milkResidue, long sugarResidue,
+                       long waterResidue, Long coffeeResidue) {
 
         this.id = coffeeMaker.id;
         this.firm = coffeeMaker.firm;
@@ -48,11 +48,14 @@ public class CoffeeMaker {
         this.flushingTiming = coffeeMaker.flushingTiming;
         this.on = coffeeMaker.on;
         this.amountOfWaterForFlushing = coffeeMaker.amountOfWaterForFlushing;
-        if (milkResidue != null) this.milkResidue = milkResidue;
-        if (sugarResidue != null) this.sugarResidue = sugarResidue;
-        if (waterResidue != null) this.waterResidue = waterResidue;
-        if (coffeeResidue != null) this.coffeeResidue = coffeeResidue;
+        this.milkResidue = milkResidue;
+        this.sugarResidue = sugarResidue;
+        this.waterResidue = waterResidue;
+        this.coffeeResidue = coffeeResidue;
         this.coffeeCompartment = coffeeMaker.coffeeCompartment;
     }
+
+
+
 
 }
